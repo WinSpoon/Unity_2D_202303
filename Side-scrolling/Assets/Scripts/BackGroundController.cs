@@ -24,6 +24,7 @@ public class BackGroundController : MonoBehaviour
 
     // ** 플레이어 정보
     private GameObject player;
+    private PlayerController playerController;
 
     // ** 움직임 정보
     private Vector3 movemane;
@@ -33,20 +34,23 @@ public class BackGroundController : MonoBehaviour
 
     private void Awake()
     {
-        // ** 이미지를 담고있는 구성요소를 받아온다.
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // ** 구성요소에 포함된 이미지를 받아온다.
-        sprite = spriteRenderer.sprite;
-    }
-
-    void Start()
-    {
         // ** 플레이어의 기본정보를 받아온다.
         player = GameObject.Find("Player").gameObject;
 
         // ** 부모객체를 받아온다.
         parent = GameObject.Find("BackGround").transform;
+
+        // ** 현재 이미지를 담고있는 구성요소를 받아온다.
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // ** 플레이어 이미지를 담고있는 구성요소를 받아온다.
+        playerController = player.GetComponent<PlayerController>();
+    }
+
+    void Start()
+    {
+        // ** 구성요소에 포함된 이미지를 받아온다.
+        sprite = spriteRenderer.sprite;
 
         // ** 시작지점을 설정.
         endPoint = sprite.bounds.size.x * 0.5f + transform.position.x;
@@ -57,6 +61,23 @@ public class BackGroundController : MonoBehaviour
 
     void Update()
     {
+
+        /*
+        // ** 플레이어가 바라보고 있는 방향에 따라 분기됨. 
+        if(playerController.Dir)
+        {// ** 좌측 이동
+
+            
+        }
+        
+        if()
+        {// ** 우측 이동
+
+            print("Right" + playerController);
+           
+        }
+         */
+
         // ** 이동정보 셋팅
         movemane = new Vector3(
             Input.GetAxisRaw("Horizontal") * Time.deltaTime * Speed + offset.x, // ** singleton

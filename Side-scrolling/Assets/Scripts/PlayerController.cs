@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     // ** 움직이는 속도
@@ -35,6 +36,9 @@ public class PlayerController : MonoBehaviour
     private float Direction;
 
 
+    // ** 플레이어가 바라보는 방향
+    public bool DirLeft;
+    public bool DirRight;
 
     private void Awake()
     {
@@ -57,6 +61,9 @@ public class PlayerController : MonoBehaviour
         onHit = false;
         Direction = 1.0f;
 
+        DirLeft = false;
+        DirRight = false;
+
         for (int i = 0; i < 7; ++i)
             stageBack[i] = GameObject.Find(i.ToString());
     }
@@ -71,12 +78,25 @@ public class PlayerController : MonoBehaviour
         // ** Hor이 0이라면 멈춰있는 상태이므로 예외처리를 해준다. 
         if (Hor != 0)
             Direction = Hor;
+        else
+        {
+            DirLeft = false;
+            DirRight = false;
+        }
         
         // ** 플레이어가 바라보고있는 방향에 따라 이미지 반전 설정.
         if(Direction < 0)
-            playerRenderer.flipX = true;
+        {
+            playerRenderer.flipX = DirLeft = true;
+            // ** 실제 플레이어를 움직인다.
+            transform.position += Movement;
+        }
         else if (Direction > 0)
+        {
             playerRenderer.flipX = false;
+            DirRight = true;
+        }
+
 
 
         // ** 입력받은 값으로 플레이어를 움직인다.
@@ -124,11 +144,6 @@ public class PlayerController : MonoBehaviour
 
         // ** 플레이의 움직임에 따라 이동 모션을 실행 한다.
         animator.SetFloat("Speed", Hor);
-
-        // ** 실제 플레이어를 움직인다.
-
-        // ** offset box 
-        //transform.position += Movement;
     }
 
     private void OnAttack()
@@ -137,7 +152,6 @@ public class PlayerController : MonoBehaviour
         if (onAttack)
             // ** 함수를 종료시킨다.
             return;
-
 
         // ** 함수가 종료되지 않았다면...
         // ** 공격상태를 활성화 하고.
