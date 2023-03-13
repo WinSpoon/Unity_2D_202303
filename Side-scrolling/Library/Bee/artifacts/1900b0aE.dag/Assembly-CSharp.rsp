@@ -355,6 +355,7 @@
 "Assets/Scripts/BackGroundController.cs"
 "Assets/Scripts/BullerController.cs"
 "Assets/Scripts/CameraController.cs"
+"Assets/Scripts/ControllerManager.cs"
 "Assets/Scripts/PlayerController.cs"
 -langversion:9.0
 
