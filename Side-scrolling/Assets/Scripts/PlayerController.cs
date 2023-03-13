@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     private bool onHit; // 피격상태
 
     // ** 복제할 총알 원본
-    public GameObject BulletPrefab;
+    private GameObject BulletPrefab;
 
     // ** 복제할 FX 원본
-    public GameObject fxPrefab;
+    private GameObject fxPrefab;
 
     public GameObject[] stageBack = new GameObject[7];
 
@@ -45,8 +45,14 @@ public class PlayerController : MonoBehaviour
         // ** player 의 Animator를 받아온다.
         animator = this.GetComponent<Animator>();
 
+
         // ** player 의 SpriteRenderer를 받아온다.
         playerRenderer = this.GetComponent<SpriteRenderer>();
+
+
+        // ** [Resources] 폴더에서 사용할 리소스를 들고온다.
+        BulletPrefab = Resources.Load("Prefabs/Bullet") as GameObject;
+        fxPrefab = Resources.Load("Prefabs/FX/Smoke") as GameObject;
     }
 
     // ** 유니티 기본 제공 함수
@@ -66,6 +72,9 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 7; ++i)
             stageBack[i] = GameObject.Find(i.ToString());
+
+
+        
     }
 
     // ** 유니티 기본 제공 함수

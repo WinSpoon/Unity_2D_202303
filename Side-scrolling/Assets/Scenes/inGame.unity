@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412891710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.4, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -907,8 +907,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7716927889e6ba848bf3106abb7d1dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletPrefab: {fileID: 2429328721626006214, guid: 6d2585e938b787347af29037de54b16a, type: 3}
-  fxPrefab: {fileID: 1892078723244562, guid: a0b20788edffd4f4996a0fbbe0c5e24d, type: 3}
+  BulletPrefab: {fileID: 0}
+  fxPrefab: {fileID: 0}
   stageBack:
   - {fileID: 0}
   - {fileID: 0}
@@ -917,7 +917,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  Dir: 0
+  DirLeft: 0
+  DirRight: 0
 --- !u!95 &1096496865
 Animator:
   serializedVersion: 5
