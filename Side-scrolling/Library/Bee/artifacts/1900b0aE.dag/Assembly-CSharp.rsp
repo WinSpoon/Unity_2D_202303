@@ -351,11 +351,11 @@
 "Assets/99. Resource/Yoge/ParallaxBackground 1/Scripts/Parallax.cs"
 "Assets/FX/Scripts/CFX_AutoDestructShuriken.cs"
 "Assets/FX/Scripts/CFX_LightIntensityFade.cs"
-"Assets/MyGizmo.cs"
 "Assets/Scripts/BackGroundController.cs"
 "Assets/Scripts/BullerController.cs"
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/ControllerManager.cs"
+"Assets/Scripts/MyGizmo.cs"
 "Assets/Scripts/PlayerController.cs"
 -langversion:9.0
 
