@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class PlayerController : MonoBehaviour
 {
     // ** 움직이는 속도
@@ -27,14 +28,19 @@ public class PlayerController : MonoBehaviour
     // ** 복제할 FX 원본
     private GameObject fxPrefab;
 
+    // 추후 list로 변경
     public GameObject[] stageBack = new GameObject[7];
+
+    /*
+    Dictionary<string, object>;
+    Dictionary<string, GameObject>;
+     */
 
     // ** 복제된 총알의 저장공간.
     private List<GameObject> Bullets = new List<GameObject>();
 
     // ** 플레이어가 마지막으로 바라본 방향.
     private float Direction;
-
 
     // ** 플레이어가 바라보는 방향
     public bool DirLeft;
@@ -84,11 +90,10 @@ public class PlayerController : MonoBehaviour
         // ** 입력받은 값으로 플레이어를 움직인다.
         Movement = new Vector3(
             Hor * Time.deltaTime * Speed,
-            Ver * Time.deltaTime * Speed,
+            Ver * Time.deltaTime * (Speed * 0.5f),
             0.0f);
 
         transform.position += new Vector3(0.0f, Movement.y, 0.0f);
-
 
         // ** Hor이 0이라면 멈춰있는 상태이므로 예외처리를 해준다. 
         if (Hor != 0)
@@ -224,6 +229,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print("Coll");
+
     }
 }
