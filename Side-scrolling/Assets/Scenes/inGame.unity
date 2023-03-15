@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be901fccf7e6ecd41954151b895cd2ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 0
 --- !u!1 &887813704 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7119006405841619536, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
@@ -1236,9 +1236,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2347578262815569652, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824400152320086202, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850808044836671445, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850808044836671445, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850808044836671445, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7119006405841619536, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119006405841619536, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7119006405841619564, guid: eca9e82ece2b8584ea3991f556df9840, type: 3}
       propertyPath: m_RootOrder

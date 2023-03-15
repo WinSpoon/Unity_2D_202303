@@ -42,8 +42,12 @@ public class PlayerController : MonoBehaviour
     // ** 플레이어가 마지막으로 바라본 방향.
     private float Direction;
 
+    [Header("방향")]
     // ** 플레이어가 바라보는 방향
+
+    [Tooltip("왼쪽")]
     public bool DirLeft;
+    [Tooltip("오른쪽")]
     public bool DirRight;
 
 
@@ -124,7 +128,8 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || 
+            Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
             ControllerManager.GetInstance().DirRight = false;
             ControllerManager.GetInstance().DirLeft = false;
