@@ -49,13 +49,13 @@ public class EnemyManager : MonoBehaviour
             GameObject Obj = Instantiate(Prefab);
 
             // ** Enemy 작동 스크립트 포함.
-            Obj.AddComponent<EnemyController>();
+            //Obj.AddComponent<EnemyController>();
 
             // ** 클론의 위치를 초기화.
-            //Obj.transform.position = new Vector3(
-                //18.0f, Random.Range(-8.2f, -5.2f), 0.0f);
-
             Obj.transform.position = new Vector3(
+                18.0f, Random.Range(-8.2f, -5.2f), 0.0f);
+
+           Obj.transform.position = new Vector3(
                 18.0f, -7.5f, 0.0f);
 
             // ** 클론의 이름 초기화.

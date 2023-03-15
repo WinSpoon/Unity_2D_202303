@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     public float Speed;
+    public int HP;
     private Animator Anim;
     private Vector3 Movement;
 
@@ -17,6 +18,7 @@ public class EnemyController : MonoBehaviour
     {
         Speed = 0.2f;
         Movement = new Vector3(1.0f, 0.0f, 0.0f);
+        HP = 3;
     }
 
     void Update()
@@ -26,5 +28,24 @@ public class EnemyController : MonoBehaviour
 
         transform.position -= Movement * Time.deltaTime;
         Anim.SetFloat("Speed", Movement.x);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Bullet")
+        {
+            --HP;
+
+            if(HP <= 0 )
+            {
+                Anim.SetTrigger("Die");
+                GetComponent<CapsuleCollider2D>().enabled = false;
+            }
+        }
+    }
+
+    private void DestroyEnemy()
+    {
+        Destroy(gameObject, 0.016f);
     }
 }

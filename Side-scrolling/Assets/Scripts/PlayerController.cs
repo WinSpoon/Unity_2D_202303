@@ -61,7 +61,8 @@ public class PlayerController : MonoBehaviour
 
         // ** [Resources] 폴더에서 사용할 리소스를 들고온다.
         BulletPrefab = Resources.Load("Prefabs/Bullet") as GameObject;
-        fxPrefab = Resources.Load("Prefabs/FX/Smoke") as GameObject;
+        //fxPrefab = Resources.Load("Prefabs/FX/Smoke") as GameObject;
+        fxPrefab = Resources.Load("Prefabs/FX/Hit") as GameObject;
     }
 
     // ** 유니티 기본 제공 함수
