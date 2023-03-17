@@ -31,7 +31,7 @@ public class BackGroundController : MonoBehaviour
 
     // ** 이미지가 중앙 위치에 정상적으로 노출될 수 있도록 하기 위한 완충역할.
     private Vector3 offset = new Vector3(0.0f, 7.5f, 0.0f);
-
+    float dis;
     private void Awake()
     {
         // ** 플레이어의 기본정보를 받아온다.
@@ -73,7 +73,7 @@ public class BackGroundController : MonoBehaviour
             0.0f, 0.0f);
 
         // ** singleton
-        if(ControllerManager.GetInstance().DirRight)
+        if (ControllerManager.GetInstance().DirRight)
         {
             transform.position -= movemane;
             endPoint -= movemane.x;

@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour
 
     private float CoolDown;
     private bool Attack;
-    private bool Run;
     private bool SkillAttack;
 
     private void Awake()
