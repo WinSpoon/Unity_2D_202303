@@ -142,24 +142,15 @@ public class BossController : MonoBehaviour
 
     private void onAttack()
     {
-        {
-            print("onAttack");
-        }
-
         active = true;
     }
 
     private void onWalk()
     {
-        print("onWalk");
         Walk = true;
         
         // ** 목적지에 도착할 때까지......
         float Distance = Vector3.Distance(EndPoint, transform.position);
-
-
-        print(EndPoint);
-        print(Distance);
 
         if(Distance > 0.5f)
         {
@@ -179,10 +170,6 @@ public class BossController : MonoBehaviour
 
     private void onSlide()
     {
-        {
-            print("onSlide");
-        }
-
         active = true;
     }
 }
