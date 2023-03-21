@@ -361,8 +361,9 @@
 "Assets/Scripts/EnemyManager.cs"
 "Assets/Scripts/MyGizmo.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/UI/EnemyHpBar.cs"
+"Assets/Scripts/UI/PlayerHPBar.cs"
 "Assets/Scripts/UI/SidebarController.cs"
-"Assets/Textures/Test.cs"
 -langversion:9.0
 
 /deterministic
