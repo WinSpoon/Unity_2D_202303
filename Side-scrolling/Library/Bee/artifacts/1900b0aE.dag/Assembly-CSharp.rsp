@@ -350,6 +350,7 @@
 "Assets/99. Resource/Yoge/ParallaxBackground 1/Scripts/CameraMovement.cs"
 "Assets/99. Resource/Yoge/ParallaxBackground 1/Scripts/Parallax.cs"
 "Assets/99. Resource/_Heathen Engineering/Samples/UX Examples/Flat Icons [Free]/ToggleSetAnimatorBoolean.cs"
+"Assets/ButtonController.cs"
 "Assets/FX/Scripts/CFX_AutoDestructShuriken.cs"
 "Assets/FX/Scripts/CFX_LightIntensityFade.cs"
 "Assets/Scripts/BackGroundController.cs"
