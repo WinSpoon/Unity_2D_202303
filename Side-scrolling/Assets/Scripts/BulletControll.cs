@@ -5,13 +5,11 @@ using UnityEngine;
 public class BulletControll : MonoBehaviour
 {
     // ** 총알이 날아가는 속도
-    public float Speed;
-    public GameObject Target; 
+    private float Speed;
+    public GameObject Target = null; 
 
     public bool Option; 
-    public float Angle; 
     
-
     // ** 총알이 충돌한 횟수
     //private int hp;
 
@@ -19,15 +17,23 @@ public class BulletControll : MonoBehaviour
     public GameObject fxPrefab;
 
     // ** 총알이 날아가야할 방향
-    private Vector3 Direction { get; set; }
+    public Vector3 Direction { get; set; }
 
     private void Start()
     {
         // ** 속도 초기값
-        Speed = ControllerManager.GetInstance().BulletSpeed;
+        //Speed = ControllerManager.GetInstance().BulletSpeed;
+        Speed = Option ? 0.75f : 1.0f;
 
         // ** 벡터의 정규화.
-        Direction = (Target.transform.position - transform.position).normalized;
+        if(Option)
+            Direction = (Target.transform.position - transform.position);
+        Direction.Normalize();
+
+        float fAngle = getAngle(Vector3.down, Direction);
+
+        transform.eulerAngles = new Vector3(
+            0.0f, 0.0f, fAngle);
 
         // ** 충돌 횟수를 3으로 지정한다.
         //hp = 3;
@@ -36,8 +42,15 @@ public class BulletControll : MonoBehaviour
     void Update()
     {
         // ** 실시간으로 타겟의 위치를 확인하고 방향을 갱신한다.
-        if(Option)
+        if(Option && Target )
+        {
             Direction = (Target.transform.position - transform.position).normalized;
+
+            float fAngle = getAngle(Vector3.down, Target.transform.position);
+
+            transform.eulerAngles = new Vector3(
+                0.0f, 0.0f, fAngle);
+        }
 
         // ** 방향으로 속도만큼 위치를 변경
         transform.position += Direction * Speed * Time.deltaTime;
@@ -73,5 +86,10 @@ public class BulletControll : MonoBehaviour
         if (hp == 0)
             Destroy(this.gameObject, 0.016f);
          */
+    }
+
+    public float getAngle(Vector3 from, Vector3 to)
+    {
+        return Quaternion.FromToRotation(Vector3.down, to - from).eulerAngles.z;
     }
 }
