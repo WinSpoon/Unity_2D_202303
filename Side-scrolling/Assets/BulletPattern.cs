@@ -8,8 +8,8 @@ public class BulletPattern : MonoBehaviour
     public enum Pattern
     {
         Screw,
-        DelayScrew, 
-        C, D, 
+        DelayScrew,
+        Twist, D, 
         Explosion, F, 
         GuideBullet
     };
@@ -36,8 +36,8 @@ public class BulletPattern : MonoBehaviour
                 
                 break;
 
-            case Pattern.C:
-
+            case Pattern.Twist:
+                StartCoroutine(TwistPattern());
                 break;
 
             case Pattern.D:
@@ -110,7 +110,24 @@ public class BulletPattern : MonoBehaviour
             yield return new WaitForSeconds(0.025f);
         }
     }
-    
+
+
+    public IEnumerator TwistPattern()
+    {
+        float fTime = 3.0f;
+
+        while (fTime > 0)
+        {
+            fTime -= Time.deltaTime;
+
+            GameObject obj = Instantiate(Resources.Load("Prefabs/Twist")) as GameObject;
+
+            yield return null;
+        }
+    }
+
+
+
     public IEnumerator ExplosionPattern(float _angle, int _count, bool _option = false)
     {
         GameObject ParentObj = new GameObject("Bullet");

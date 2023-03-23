@@ -369,6 +369,7 @@
 "Assets/Scripts/UI/PlayerHPBar.cs"
 "Assets/Scripts/UI/SidebarController.cs"
 "Assets/Scripts/UI/UiController.cs"
+"Assets/Twist.cs"
 -langversion:9.0
 
 /deterministic
