@@ -352,6 +352,7 @@
 "Assets/99. Resource/_Heathen Engineering/Samples/UX Examples/Flat Icons [Free]/ToggleSetAnimatorBoolean.cs"
 "Assets/BulletPattern.cs"
 "Assets/DataManager.cs"
+"Assets/ExampleManager.cs"
 "Assets/FX/Scripts/CFX_AutoDestructShuriken.cs"
 "Assets/FX/Scripts/CFX_LightIntensityFade.cs"
 "Assets/Scripts/BackGroundController.cs"
