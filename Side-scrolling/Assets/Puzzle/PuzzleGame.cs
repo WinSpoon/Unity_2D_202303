@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PuzzleGame : MonoBehaviour
 {
+    //public Transform parent;
     public int width = 20; // ∆€¡Ò ∏  ∞°∑Œ ±Ê¿Ã
     public int height = 20; // ∆€¡Ò ∏  ºº∑Œ ±Ê¿Ã
     public float tileSize = 1f; // ∆€¡Ò ≈∏¿œ ≈©±‚
@@ -30,10 +31,17 @@ public class PuzzleGame : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                Vector2 position = new Vector2(x * tileSize, y * tileSize);
-                Sprite sprite = tileSprites[Random.Range(0, tileSprites.Length)];
-                Tile tile = new Tile(position, tileSize, sprite);
-                tiles[x, y] = tile;
+                GameObject gameObject = new GameObject();
+                Tile tile = gameObject.AddComponent<Tile>();
+                tile.position = new Vector2(x * tileSize, y * tileSize);
+                tile.sprite = tileSprites[Random.Range(0, tileSprites.Length)];
+                tile.sprite = tileSprites[Random.Range(0, tileSprites.Length)];
+                tile.size = tileSize;
+
+                tile.transform.SetParent(transform);
+
+                //tiles[x, y] = tile;
+                //tiles[x, y].transform.SetParent(this.transform);
             }
         }
     }

@@ -5,25 +5,20 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public Color color; // 타일 색상
-    private Vector2 position; // 타일 좌표
-    private float size; // 타일 크기
-    private Sprite sprite; // 타일 스프라이트
-    private GameObject gameObject; // 타일 게임 오브젝트
+    public Vector2 position; // 타일 좌표
+    public Sprite sprite; // 타일 스프라이트
+    public float size; // 타일 크기
+    //private GameObject gameObject; // 타일 게임 오브젝트
 
-    public Tile(Vector2 position, float size, Sprite sprite)
+    public Tile()
     {
-        this.position = position;
-        this.size = size;
-        this.sprite = sprite;
-
         // 타일 게임 오브젝트 생성
-        gameObject = new GameObject();
-        gameObject.name = "Tile";
-        gameObject.transform.position = position;
-        gameObject.transform.localScale = new Vector3(size, size, 1f);
-        gameObject.AddComponent<SpriteRenderer>().sprite = sprite;
-        gameObject.AddComponent<BoxCollider2D>();
-        gameObject.SetActive(true);
+        this.gameObject.name = "Tile";
+        this.gameObject.transform.position = position;
+        this.gameObject.transform.localScale = new Vector3(size, size, 1f);
+        this.gameObject.AddComponent<SpriteRenderer>().sprite = sprite;
+        this.gameObject.AddComponent<BoxCollider2D>();
+        this.gameObject.SetActive(true);
 
         // 타일 색상 랜덤 설정
         Color[] colors = { Color.red, Color.yellow, Color.green, Color.blue, Color.magenta };
