@@ -10,31 +10,30 @@ public class ProgressBar : MonoBehaviour
     private AsyncOperation asyncOperation;
     public Text text;
     public Text messagetext;
+    public Image image;
 
     IEnumerator Start()
     {
-        //EditorApplication.isPaused = true;
+        image.fillAmount = 0.0f;
         asyncOperation = SceneManager.LoadSceneAsync("GameStart");
         asyncOperation.allowSceneActivation = false;
 
         while (!asyncOperation.isDone)
         {
-            float progress = asyncOperation.progress / 0.9f * 100f;
+            float progress = asyncOperation.progress / 0.9f;
+            image.fillAmount = progress;
+            progress *= 100f;
             text.text = progress.ToString() + "%";
 
-            yield return null;
+            yield return new WaitForSeconds( Random.Range(0.5f, 1.0f)) ;
 
-            if (asyncOperation.progress > 0.7f)
+            if (image.fillAmount > 0.7f)
             {
-                yield return new WaitForSeconds(2.5f);
+                yield return new WaitForSeconds(3.5f);
 
-                messagetext.gameObject.SetActive(true);
-
-                if(Input.GetMouseButtonDown(0))
-                    asyncOperation.allowSceneActivation = true;
+                //messagetext.gameObject.SetActive(true);
+                asyncOperation.allowSceneActivation = true;
             }
         }
-
-
     }
 }
