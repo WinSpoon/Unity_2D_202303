@@ -2,6 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ColorYype
+{
+    Red,
+    Green,
+    Blue,
+    Yellow,
+    Purple,
+    Orange
+}
+
+public enum BlockType
+{
+    Regular,
+    Special,
+    Additional
+}
+
 public class BlockGameController : MonoBehaviour
 {
     public GameObject[] blockPrefabs;
@@ -10,7 +28,20 @@ public class BlockGameController : MonoBehaviour
     public Vector2 blockSize = new Vector2(1, 1);
     public int minimumConnectedBlocks = 3;
     public float specialBlockChance = 0.1f;
-    public Color[] colors = new Color[6];
+
+    private Vector3 offset;
+
+
+    /*
+    private Block selectedBlock;
+    private Vector3 initialBlockPosition;
+    private Vector2Int initialBlockCoord;
+     */
+
+    private Block selectedBlock;
+    private Vector2 initialMousePosition;
+    private Vector2Int initialBlockCoord;
+
 
     private Block[,] blocks;
     private bool isRemovingBlocks;
@@ -18,6 +49,7 @@ public class BlockGameController : MonoBehaviour
     void Start()
     {
         blocks = new Block[width, height];
+        offset = new Vector3((blockSize.x * width) * .5f, (blockSize.y * height) * .5f);
         RefillBlocks();
     }
 
@@ -34,18 +66,9 @@ public class BlockGameController : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                if (blocks[x, y] == null)
+                if (IsEmpty(x, y))
                 {
-                    int randomPrefabIndex = UnityEngine.Random.Range(0, blockPrefabs.Length);
-                    GameObject blockPrefab = blockPrefabs[randomPrefabIndex];
-                    Vector2 position = GetBlockPosition(x, y);
-                    GameObject newBlock = Instantiate(blockPrefab, position, Quaternion.identity, transform);
-
-                    Block blockComponent = newBlock.GetComponent<Block>();
-                    int randomColorIndex = UnityEngine.Random.Range(0, colors.Length);
-                    blockComponent.SetColor(colors[randomColorIndex], randomColorIndex);
-
-                    blocks[x, y] = blockComponent;
+                    CreateBlock(x , y);
                 }
             }
         }
@@ -54,58 +77,88 @@ public class BlockGameController : MonoBehaviour
     // ** 새로운 블럭 생성
     private void CreateBlock(int x, int y)
     {
-        int randomPrefabIndex = Random.Range(0, blockPrefabs.Length);
-        Vector2 spawnPosition = new Vector2(x * blockSize.x, y * blockSize.y);
-        GameObject newBlock = Instantiate(blockPrefabs[randomPrefabIndex], spawnPosition, Quaternion.identity);
-        newBlock.transform.parent = transform;
+        int randomblock = Random.Range(0, blockPrefabs.Length);
+        GameObject blockObject = Instantiate(blockPrefabs[randomblock], GetBlockPosition(x - (int)offset.x, y - (int)offset.y + 3), Quaternion.identity, transform);
+        blockObject.name = "Block_" + (y * 8 + x).ToString();
 
-        Block blockComponent = newBlock.GetComponent<Block>();
-        int randomColorIndex = Random.Range(0, colors.Length);
-        blockComponent.SetColor(colors[randomColorIndex], randomColorIndex);
-        blockComponent.blockType = (UnityEngine.Random.value < specialBlockChance) ? Block.BlockType.Special : Block.BlockType.Normal;
-
-        blocks[x, y] = blockComponent;
+        Block block = blockObject.GetComponent<Block>();
+        block.SetColor((ColorYype)Random.Range(0, 6));
+        block.type = Random.value < specialBlockChance ? BlockType.Special : BlockType.Regular;
+        blocks[x, y] = block;
     }
-
     private Vector2 GetBlockPosition(int x, int y)
     {
         return new Vector2(x * blockSize.x, y * blockSize.y);
     }
 
-    private int GetConnectedBlocks(int x, int y, int type, bool isSpecial, List<Block> connectedBlocks)
+    private Block BlockPicking()
     {
-        // 이미 체크한 블럭은 무시
-        if (connectedBlocks.Contains(blocks[x, y])) return 0;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // 같은 색상의 블럭이 아니면 무시
-        if (blocks[x, y] == null || blocks[x, y].type != type || blocks[x, y].blockType != BlockType.Special) return 0;
+        RaycastHit hit;
 
-        // 블럭을 체크한 블럭 리스트에 추가
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            if(hit.transform.gameObject != null)
+            {
+            }
+            print(hit.transform.gameObject);    
+        }
+
+        Block block = new Block();
+
+
+        return block;
+    }
+
+
+
+
+    /*
+
+    private int GetConnectedBlocks(int x, int y, ColorYype colorType, BlockType blockType, List<Block> connectedBlocks)
+    {
+        if (x < 0 || x >= width || y < 0 || y >= height || blocks[x, y] == null || connectedBlocks.Contains(blocks[x, y]))
+        {
+            return 0;
+        }
+
+        if (blocks[x, y].colortype != colorType || blocks[x, y].type != blockType)
+        {
+            return 0;
+        }
+
         connectedBlocks.Add(blocks[x, y]);
 
-        // 현재 블럭에서 상하좌우의 블럭들을 체크
         int count = 1;
-        count += GetConnectedBlocks(x, y + 1, type, isSpecial, connectedBlocks);
-        count += GetConnectedBlocks(x, y - 1, type, isSpecial, connectedBlocks);
-        count += GetConnectedBlocks(x - 1, y, type, isSpecial, connectedBlocks);
-        count += GetConnectedBlocks(x + 1, y, type, isSpecial, connectedBlocks);
+        count += GetConnectedBlocks(x, y + 1, colorType, blockType, connectedBlocks);
+        count += GetConnectedBlocks(x, y - 1, colorType, blockType, connectedBlocks);
+        count += GetConnectedBlocks(x - 1, y, colorType, blockType, connectedBlocks);
+        count += GetConnectedBlocks(x + 1, y, colorType, blockType, connectedBlocks);
 
         return count;
     }
 
-    private void RemoveConnectedBlocks(int x, int y, int type, bool isSpecial)
+    // ** 현재 블럭과 같은 색상, 같은 특수 블럭을 가진 블럭들을 모두 제거
+    private void RemoveConnectedBlocks(int x, int y, ColorYype colorType, BlockType blockType)
     {
-        // 현재 블럭과 같은 색상, 같은 특수 블럭을 가진 블럭들을 모두 제거
-        if (blocks[x, y] != null && blocks[x, y].type == type && blocks[x, y].blockType == isSpecial)
-        {
-            Destroy(blocks[x, y].gameObject);
-            blocks[x, y] = null;
-        }
 
-        if (x > 0) RemoveConnectedBlocks(x - 1, y, type, isSpecial);
-        if (x < width - 1) RemoveConnectedBlocks(x + 1, y, type, isSpecial);
-        if (y > 0) RemoveConnectedBlocks(x, y - 1, type, isSpecial);
-        if (y < height - 1) RemoveConnectedBlocks(x, y + 1, type, isSpecial);
+        List<Block> connectedBlocks = new List<Block>();
+        GetConnectedBlocks(x, y, colorType, blockType, connectedBlocks);
+
+        if (connectedBlocks.Count >= minimumConnectedBlocks)
+        {
+            foreach (Block block in connectedBlocks)
+            {
+                int blockX = (int)(block.transform.position.x / blockSize.x);
+                int blockY = (int)(block.transform.position.y / blockSize.y);
+                blocks[blockX, blockY] = null;
+                Destroy(block.gameObject);
+            }
+
+            isRemovingBlocks = true;
+            StartCoroutine(ShiftBlocksDown());
+        }
     }
 
     private IEnumerator ShiftBlocksDown()
@@ -141,60 +194,29 @@ public class BlockGameController : MonoBehaviour
 
     private void ExecuteSpecialFunction()
     {
-        // 빈 함수를 나중에 필요한 기능으로 채워넣을 수 있습니다.
+        // ** 빈 함수를 나중에 특수블럭의 기능으로 채워넣을 수 있습니다.
+        print("특수기능");
     }
 
+    private Vector2 beginPoint;
+    private Vector2 endPoint;
+
+    */
     void Update()
     {
-        if (isRemovingBlocks) return;
-
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            int x = Mathf.FloorToInt(mouseWorldPosition.x / blockSize.x);
-            int y = Mathf.FloorToInt(mouseWorldPosition.y / blockSize.y);
-
-            if (x >= 0 && x < width && y >= 0 && y < height && blocks[x, y] != null)
-            {
-                List<Block> connectedBlocks = new List<Block>();
-                int connectedCount = GetConnectedBlocks(x, y, blocks[x, y].type, blocks[x, y].blockType, connectedBlocks);
-
-                if (connectedCount >= minimumConnectedBlocks)
-                {
-                    isRemovingBlocks = true;
-                    RemoveConnectedBlocks(x, y, blocks[x, y].type, blocks[x, y].blockType);
-                    if (blocks[x, y].blockType)
-                    {
-                        ExecuteSpecialFunction();
-                    }
-                    StartCoroutine(ShiftBlocksDown());
-                }
-            }
+            BlockPicking();
+            /*
+            beginPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            print("beginPoint : " + beginPoint);
         }
-    }
-}
-public enum BlockType
-{
-    Normal,
-    Special,
-    // 추가적인 블록 타입들 (예: PowerUp, Bomb 등)
-}
 
-[System.Serializable]
-public class Block : MonoBehaviour
-{
-    public int type;
-    public BlockType BlockType;
-    private SpriteRenderer spriteRenderer;
-
-    void Awake()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    public void SetColor(Color color, int colorIndex)
-    {
-        spriteRenderer.color = color;
-        type = colorIndex;
+        if (Input.GetMouseButtonUp(0))
+        {
+            endPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            print("endPoint : " + endPoint);
+             */
+        }
     }
 }

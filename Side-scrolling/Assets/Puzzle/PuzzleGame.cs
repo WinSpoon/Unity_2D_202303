@@ -167,8 +167,8 @@ public class PuzzleGame : MonoBehaviour
                 {
                     Vector2 position = new Vector2(x * tileSize, (y + emptyCount) * tileSize);
                     Sprite sprite = tileSprites[Random.Range(0, tileSprites.Length)];
-                    Tile tile = new Tile(position, tileSize, sprite);
-                    tiles[x, y] = tile;
+                    //Tile tile = new Tile(position, tileSize, sprite);
+                    //tiles[x, y] = tile;
                     emptyCount++;
                 }
             }

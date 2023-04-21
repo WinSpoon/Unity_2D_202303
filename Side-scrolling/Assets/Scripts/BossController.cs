@@ -171,5 +171,6 @@ public class BossController : MonoBehaviour
     private void onSlide()
     {
         active = true;
+
     }
 }
