@@ -4,13 +4,12 @@ using UnityEditor;
 [CustomEditor(typeof(ScopeController))]
 public class ScopeEditor : Editor
 {
+    /*
     private void OnSceneGUI()
     {
         ScopeController targetCompnemt = (ScopeController)target;
 
         Handles.DrawWireArc(targetCompnemt.transform.position, Vector3.up, Vector3.forward, 360.0f, targetCompnemt.radius);
-
-
 
         float Segments = targetCompnemt.Angle / targetCompnemt.Segments;
 
@@ -33,4 +32,5 @@ public class ScopeEditor : Editor
                 targetCompnemt.transform.position + angleRightPoint * targetCompnemt.radius);
         }
     }
+     */
 }
