@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Initalizer : MonoBehaviour
 {
+
     private void Awake()
     {
         var prefabManager = PrefabManager.GetInstance;
+        var objectPoolManager = ObjectPoolManager.GetInstance;
     }
 }

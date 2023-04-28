@@ -347,10 +347,12 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/Controller/EnemyController.cs"
 "Assets/Scripts/Controller/PlayerController.cs"
 "Assets/Scripts/Controller/ScopeController.cs"
 "Assets/Scripts/Manager/Initalizer.cs"
-"Assets/Scripts/Manager/PrefabManager.cs"
+"Assets/Scripts/Manager/ObjectPoolManager/ObjectPoolManager.cs"
+"Assets/Scripts/Manager/PrefabManager/PrefabManager.cs"
 -langversion:9.0
 
 /deterministic
